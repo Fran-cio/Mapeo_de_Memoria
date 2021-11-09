@@ -1,4 +1,4 @@
-## Laboratorio N6
+## Laboratorio N6
 # mmap
 ### SOI - FCEFyN - UNC - 2021
 
