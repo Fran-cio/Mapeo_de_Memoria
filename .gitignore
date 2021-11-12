@@ -1,1 +1,8 @@
 main
+*.ini
+*.o
+*.out
+*.a
+node_modules
+*.json
+.husky
