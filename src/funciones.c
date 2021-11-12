@@ -40,6 +40,11 @@ archivo* obtener_estructura()
 	archivo *lectura;
 	int fd;
 	fd = open("./rawdata/datos", O_RDONLY); //Obtengo el file descriptor
+	if(fd==-1)
+	{
+		perror("open fail");
+		exit(EXIT_FAILURE);
+	}
 
 	/*
 	 * Mapeo el fd en algun lugar de la memoria comaprtida
