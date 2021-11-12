@@ -1,9 +1,9 @@
-#include <semaphore.h>
 #include <stdio.h>
 #include "../include/struct.h"
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 /*
  * Recorro e imprimo todos los valores
@@ -39,13 +39,13 @@ archivo* obtener_estructura()
 {
 	archivo *lectura;
 	int fd;
-
-	fd = open("./rawdata/datos", O_RDWR); //Obtengo el file descriptor
+	fd = open("./rawdata/datos", O_RDONLY); //Obtengo el file descriptor
 
 	/*
 	 * Mapeo el fd en algun lugar de la memoria comaprtida
 	 */
-	lectura=mmap(NULL, sizeof(lectura), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+	lectura=mmap(NULL, sizeof(lectura), PROT_READ|PROT_WRITE, MAP_PRIVATE, fd, 0);
+	close(fd);
 	if (lectura==MAP_FAILED)
 	{
 		perror(" failed ");
@@ -56,14 +56,4 @@ archivo* obtener_estructura()
 		return lectura;
 	}
 }
-/*
- * Genero un semaforo binario
- */
-sem_t* set_semaforo(void)
-{
-	sem_t *semaforo;
-	semaforo = mmap(NULL, sizeof(sem_t), PROT_READ | PROT_WRITE,
-			MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-	sem_init (semaforo, 1, 1);
-	return semaforo;
-}
+
