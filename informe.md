@@ -18,6 +18,7 @@ Posteriormente genero un puntero a esta estructura para utilizar de manera que m
 ## Numero de Estructuras
 Previamente hago una comparacion entre el tamaño del archivo y el tamaño de mi estructura en bytes, de tal manera que 
 > _(TamañoArchivo)/(TamañoDeEstructura)_ 
+
 Me va a dar la cantidad de estructuras contenidas en el archivo.
 
 ## Calculo del promedio de validSamples
