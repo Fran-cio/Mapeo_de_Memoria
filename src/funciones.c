@@ -1,10 +1,11 @@
-#include <stdio.h>
 #include "../include/struct.h"
+
+#include <stdio.h>
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 /*
  * Recorro e imprimo todos los valores
  */
@@ -35,9 +36,8 @@ void imprimir(archivo archivo)
 	printf("\n\n");
 }
 
-archivo* obtener_estructura()
+void obtener_estructura(archivo** lectura,int num_de_struct)
 {
-	archivo *lectura;
 	int fd;
 	fd = open("./rawdata/datos", O_RDONLY); //Obtengo el file descriptor
 	if(fd==-1)
@@ -47,18 +47,54 @@ archivo* obtener_estructura()
 	}
 
 	/*
-	 * Mapeo el fd en algun lugar de la memoria comaprtida
+	 * Mapeo el fd en algun lugar de la memoria 
 	 */
-	lectura=mmap(NULL, sizeof(lectura), PROT_READ|PROT_WRITE, MAP_PRIVATE, fd, 0);
+	*lectura=mmap(NULL, sizeof(archivo)*num_de_struct, PROT_READ|PROT_WRITE,
+			MAP_PRIVATE, fd, 0);
+	/*
+	 * La idea es que mapeo consecutivamente el tamaño de la estructura el numero
+	 * de estructuras que haya calculado, de esa manera cada movimiento de puntero
+	 * del tamaño de la estructura, accedo a cada una de manera individual
+	 */
 	close(fd);
 	if (lectura==MAP_FAILED)
 	{
 		perror(" failed ");
 		exit(EXIT_FAILURE);
 	}
-	else
+}
+/*
+ * La idea es que el tamaño del archivo, dividido el tamaño de la estructura 
+ * me va a dar el numero de estructuras que esta aloja
+ */
+int obtener_num_de_struct(char* path, int size_de_struct)
+{
+	int num_de_struct;
+	int fd_data;
+	struct stat st;
+	fd_data = open(path, O_RDONLY);
+	if (fd_data==-1)
 	{
-		return lectura;
+		perror("error al abrir archivo");
+		exit(EXIT_FAILURE);
 	}
+	fstat(fd_data, &st);
+
+	num_de_struct = st.st_size/size_de_struct;
+	close(fd_data);
+	return num_de_struct;
+}
+/*
+ * Calculo la suma de cada valor en el archivo y lo divido por el numero de
+ * estructuras
+ */
+int obtener_promedio_validSample(archivo* lectura, int num_de_struct)
+{
+	int promedio=0;
+	for (int i=0;i<num_de_struct ; i++)
+		promedio+=lectura[i].validSamples;
+
+	promedio/=num_de_struct;
+	return promedio;
 }
 

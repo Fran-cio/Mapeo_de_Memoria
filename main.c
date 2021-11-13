@@ -1,22 +1,28 @@
 #include "./include/struct.h"
 #include "./include/funciones.h"
-#include "./include/ejecutor.h"
+#include <stdio.h>
 
 int main ()
 {
+	int num_de_struct;
+	num_de_struct = obtener_num_de_struct("./rawdata/datos", sizeof(archivo));
+	archivo *lectura;
 	/*
 	 * mapeo en la posicion de memoria al archivo
 	 */
-	archivo *lectura= obtener_estructura();
+	obtener_estructura(&lectura,num_de_struct);
 	/*
 	 * Imprimo los valores dentro de la structura
 	 */
-	imprimir(*lectura);
-
+	for (int i=0; i<num_de_struct;i++)
+		imprimir(lectura[i]);
 	/*
-	 * Aca se calcula el promedio y se simula un cambio en la variable
+	 * Aca se calcula el promedio 
 	 */
-	ejecucion(lectura);
+	/*ejecucion(lectura);*/
+	int promedio=obtener_promedio_validSample(lectura, num_de_struct); 
+	printf("Numero de Estructuras: %d\nPromedio de muestras valid Samples: %d\n",
+			num_de_struct,promedio);
 	
 	return 0;	
 }

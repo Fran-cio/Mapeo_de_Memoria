@@ -2,7 +2,7 @@
 
 #define STRUCT
 #include <stdbool.h>
-typedef struct
+typedef struct 
 {
 	short unsigned int version,
 							drxVersion;
@@ -19,7 +19,7 @@ typedef struct
 			 finBarrido,
 			 finGrupo,
 			 inhibido;
-	unsigned int validSamples,
+	short unsigned int validSamples,
 							 nroAdquisicion;
 	char reservado2[2];
 	unsigned int nroSecuencia;

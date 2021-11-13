@@ -1,5 +1,7 @@
 #include "struct.h"
 
-archivo* obtener_estructura(void);
+void obtener_estructura(archivo**,int);
 void imprimir(archivo);
+int obtener_num_de_struct(char*,int);
+int obtener_promedio_validSample(archivo*,int);
 

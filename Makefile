@@ -8,17 +8,17 @@ PATHbin=./bin/
 
 Tp6: $(PATHbin)main
 
-main_gbd: main.c $(PATHrec)funciones.c $(PATHrec)ejecutor.c
+main_gdb: main.c $(PATHrec)funciones.c 
 	mkdir -p $(PATHbin)
-	$(CC) $(CFLAGS) -o $(PATHbin)main_gbd main.c $(PATHrec)funciones.c $(PATHrec)ejecutor.c -g
+	$(CC) $(CFLAGS) -o $(PATHbin)main_gdb main.c $(PATHrec)funciones.c -g
 	
 $(PATHbin)main: $(PATHout)main.o $(PATHlib)lib_tp6.a 
 	mkdir -p $(PATHbin)
 	$(CC) $(CFLAGS) -o $(PATHbin)main $(PATHout)main.o -L$(PATHlib) -l_tp6 
 	
-$(PATHlib)lib_tp6.a: $(PATHout)funciones.o $(PATHout)ejecutor.o
+$(PATHlib)lib_tp6.a: $(PATHout)funciones.o 
 	mkdir -p $(PATHlib) 
-	ar cr $(PATHlib)lib_tp6.a $(PATHout)funciones.o $(PATHout)ejecutor.o
+	ar cr $(PATHlib)lib_tp6.a $(PATHout)funciones.o 
 
 $(PATHout)main.o: main.c 
 	mkdir -p $(PATHout)
@@ -28,10 +28,6 @@ $(PATHout)main.o: main.c
 $(PATHout)funciones.o: $(PATHrec)funciones.c  
 	$(CC) $(CFLAGS) -c $(PATHrec)funciones.c 
 	mv ./funciones.o $(PATHout)
-
-$(PATHout)ejecutor.o: $(PATHrec)ejecutor.c 
-	$(CC) $(CFLAGS) -c $(PATHrec)ejecutor.c 
-	mv ./ejecutor.o $(PATHout)
 
 clean:
 	rm -f -d $(PATHlib)* $(PATHlib) $(PATHout)* $(PATHout) $(PATHbin)* $(PATHbin) 
