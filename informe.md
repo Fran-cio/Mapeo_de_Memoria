@@ -3,7 +3,7 @@
 Es interesante ver los commits anteriores para ver como interprete la consigna mal e hice malabares de los cuales me siento orgulloso porque quedaron bastente bien y hubo aprendizajes interensantes
 
 ## Mapeo en Memoria
-Conceptualmente tengo un archivo que necesito mapear en memoria, y este archivo contiene campos que tengo que leer. Para esto utilizo una structura que me permita acceder a los campos segmentados por el tamaño de memoria que le corresponde a cada campo. 
+Conceptualmente tengo un archivo que necesito mapear en memoria, y este archivo contiene campos que tengo que leer. Para esto utilizo una estructura que me permita acceder a los campos segmentados por el tamaño de memoria que le corresponde a cada campo. 
 
 <p align="center">
  <img width="80%" src="https://raw.githubusercontent.com/ICOMP-UNC/soi--2021--laboratorio-6-Fran-cio/main/imagenes/2021-11-13_15-59.png?token=ATG6MN2MHJD52ZUL55PFJ5LBTFEM4"> 
